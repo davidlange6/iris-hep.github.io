@@ -8,7 +8,7 @@ title: IRIS-HEP Innovative Algorithms Projects
 
 ### Projects
 
-###Collaborators
+### Collaborators
 
 ### Upcoming Events
 
