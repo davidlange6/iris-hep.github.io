@@ -33,7 +33,7 @@ title: IRIS-HEP Innovative Algorithms
   {% for project in site.data.ia.Projects  %}
   {% for att in project  %}
        <div class="card" style="width: 18rem;">
-         <img class="card-img-top" src="/images/{{att[1].Image}}" alt="Card image cap">
+         <img class="card-img-top" src="/assets/images/{{att[1].Image}}" alt="Card image cap">
          <div class="card-body d-flex flex-column">
          <div class="card-text">
          <b><p>{{att[0]}}</p></b>
@@ -52,9 +52,21 @@ title: IRIS-HEP Innovative Algorithms
     <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="pubs">IA Publications</h2>
   </div>
 
+We collect time ordered lists of publications in a news-feed style (one small markdown file per publication). The box is a fixed
+size, but will scroll to show older publications. To add a publication, make a new file in _posts directory following one of
+the examples (look for pub_kind: Publication in the header. The same information can be used to create the list of publications
+for the entire project.
+
 <div class="boxed">
-{% capture my_include %}{% include IA_Publications.md %}{% endcapture %}
-{{ my_include | markdownify }}
+<ul>
+  {% for post in site.posts %}
+  {% if post.pub_kind == "Publication" %}
+  {% if post.pub_area == "IA" %}
+      <li>{{ post.date | date_to_string }}: {{ post.content | markdownify | remove: '<p>' | remove: '</p>' }} </li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</ul>
 </div>
 
 </section>
@@ -64,9 +76,22 @@ title: IRIS-HEP Innovative Algorithms
     <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="pres">IA Presentations</h2>
   </div>
 
+We collect time ordered lists of presentations in a news-feed style (one small markdown file per presentation). The box is a fixed
+size, but will scroll to show older presentations. To add a presentation, make a new file in _posts directory following one of
+the examples (look for pub_kind: Presentation in the header.
+The same information can be used to create the list of presentations
+for the entire project.
+
 <div class="boxed">
-{% capture my_include2 %}{% include IA_Presentations.md %}{% endcapture %}
-{{ my_include2 | markdownify }}
+<ul>
+  {% for post in site.posts %}
+  {% if post.pub_kind == "Presentation" %}
+  {% if post.pub_area == "IA" %}
+      <li>{{ post.date | date_to_string }}: {{ post.content | markdownify | remove: '<p>' | remove: '</p>' }} </li>
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+</ul>
 </div>
 
 </section>
@@ -80,7 +105,7 @@ title: IRIS-HEP Innovative Algorithms
   <div style="overflow: hidden;">
     <div class="featured-orgs text-center p-2">
       {% for org in site.data.ia.Collaborators   %}
-      <a href="default.html"><img src="/images/{{org}}.jpg" height="100"> </a>
+      <a href="default.html"><img src="/assets/images/{{org}}.jpg" height="100"> </a>
       {% endfor %}
     </div>
   </div>
