@@ -58,8 +58,7 @@ permalink: innovative-algorithms
 </div>
 
   <div class="container-lg p-responsive py-5 py-md-6 ">
-    <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="pubs">{{ page_short_title }}  Publications</h2>
-  </div>
+    <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="pubs">{{ page_short_title }} Publications</h2>
 
 We collect time ordered lists of publications in a news-feed style (one small markdown file per publication). The box is a fixed
 size, but will scroll to show older publications. To add a publication, make a new file in _posts directory following one of
@@ -77,13 +76,13 @@ for the entire project.
   {% endfor %}
 </ul>
 </div>
+</div>
 
 </section>
 
 <section class="">
   <div class="container-lg p-responsive py-5 py-md-6 ">
     <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="pres">{{page_short_title }} Presentations</h2>
-  </div>
 
 We collect presentations from the yaml file for each team member. This box is a
 size, but will scroll to show older presentations. 
@@ -96,7 +95,7 @@ size, but will scroll to show older presentations.
         {% assign person = person_hash[1] %}
         {% if person.shortname == member %}
            {% for presentation in person.presentations %}
-             {{presentation.date}}|{{ person.name }}|{{ presentation.title }}|{{ presentation.url}}|{{ presentation.meeting }}|{{ presentation.meetingurl }}|{{ presentation.project}}|{{presentation.area}}^
+             {{presentation.date | date: "%Y-%m-%d"}}|{{ person.name }}|{{ presentation.title }}|{{ presentation.url}}|{{ presentation.meeting }}|{{ presentation.meetingurl }}|{{ presentation.project}}|{{presentation.area}}^
            {% endfor %}
         {% endif %}
       {% endfor %}
@@ -111,10 +110,11 @@ size, but will scroll to show older presentations.
 {% for presentation in sorted_pres %}
     {% assign item = presentation | split: "|" %}
     {% if item[7] == page_short_title %}
-      <li> <a href="{{item[3]}}">{{item[2]}}</a> ({{item[1]}}, {{item[0]}}) at <a href="{{item[5]}}">{{item[4]}}</a> </li>
+      <li> <a href="{{item[3]}}">{{item[2]}}</a> ({{item[1]}}, {{item[0] | date_to_string}}) at <a href="{{item[5]}}">{{item[4]}}</a> </li>
     {% endif %}
 {% endfor %}
 </ul>
+</div>
 </div>
 
 
