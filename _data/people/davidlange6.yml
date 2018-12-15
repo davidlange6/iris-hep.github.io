@@ -12,10 +12,14 @@ presentations:
     meeting: ROOT 2018 Users Workshop
     meetingurl: http://cnn.com
     location: Sarajevo
+    area: IA
+    project: MyGreatIdea
   - title: Random Churning
     date: 12 Sep 2018
     url: http://iris-hep.org/
     meeting: CHEP 2018 
     meetingurl: http://diana-hep.org
+    area: IA
+    project: MyGreatIdea
 
 
