@@ -29,22 +29,27 @@ Collaborators:
 
 projects:
   - My Great Project:
+      short_title: my-great-project
       Image: CMS.jpg
       Details: /MyGreatIdea
       Blurb: A short story behind my great idea.
   - My Great Project2:
+      short_title: my-great-project
       Image: CMS.jpg
       Details: /MyGreatIdea
       Blurb: A short story behind my great idea.
   - My Great Project3:
+      short_title: my-great-project
       Image: CMS.jpg
       Details: /MyGreatIdea
       Blurb: A short story behind my great idea.
   - My Great Project4:
+      short_title: my-great-project
       Image: CMS.jpg
       Details: /MyGreatIdea
       Blurb: A short story behind my great idea.
   - My Great Project5:
+      short_title: my-great-project
       Image: CMS.jpg
       Details: /MyGreatIdea
       Blurb: A short story behind my great idea.

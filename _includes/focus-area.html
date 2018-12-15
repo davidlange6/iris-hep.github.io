@@ -34,19 +34,20 @@
 <div class="container-fluid">
   <h2 class="alt-h2 text-center mb-3 mt-lg-6" id="projects">{{ page_short_title }} Projects</h2><br>
   <div class="row">
-  {% for project_list in page_info.projects  %}
-     {% assign project_hash = project_list | first  %}
+  {% for project_hash in site.data.projects  %}
      {% assign project = project_hash[1] %}
+     {% if project.focus-area == page_info.short_title %}
        <div class="card" style="width: 18rem;">
          <img class="card-img-top" src="/assets/images/{{project.Image}}" alt="Card image cap">
          <div class="card-body d-flex flex-column">
          <div class="card-text">
-         <b><p>{{project_hash[0]}}</p></b>
+         <b><p>{{project.name}}</p></b>
 	 {{project.Blurb}}<br>
          <a href=/projects{{project.Details}}> More information</a><br>
          </div>
        </div>
        </div>
+     {% endif %}
   {% endfor %}
   </div>
   <br>
@@ -60,13 +61,25 @@ size, but will scroll to show older publications. To add a publication, make a n
 the examples (look for pub_kind: Publication in the header. The same information can be used to create the list of publications
 for the entire project.
 
+{% capture list %}
+{% for project_hash in site.data.projects  %}
+  {% assign project = project_hash[1] %}
+  {% if project.focus-area == page_info.short_title %}
+  {% for pub in project.Publications  %}
+    ^{{pub.date | date: "%Y-%m-%d"}}|{{ pub.title }}|{{ pub.citation }}|{{ pub.link}}|{{project.name}}
+  {% endfor %}
+  {% endif %}
+{% endfor %}
+{% endcapture %}
+
+{% assign sorted_pubs = list | split: "^" | sort %}
+
 <div class="boxed">
 <ul>
-  {% for post in site.posts %}
-  {% if post.pub_kind == "Publication" %}
-  {% if post.pub_area == page_short_title %}
-      <li>{{ post.date | date_to_string }}: {{ post.content | markdownify | remove: '<p>' | remove: '</p>' }} </li>
-  {% endif %}
+  {% for pub_item in sorted_pubs %}
+  {% if pub_item.size  > 20 %}
+  {% assign pub = pub_item | split: "|" %}
+  <li> {{ pub[1] }}, <a href="{{pub[3]}}">{{pub[2]}}</a> ({{ pub[0] }}).</li>
   {% endif %}
   {% endfor %}
 </ul>
@@ -99,7 +112,6 @@ size, but will scroll to show older presentations.
 {% endcapture %}
 
 {% assign sorted_pres = list | split: "^"  | sort %}
-
 <div class="boxed">
 <ul>
 {% for presentation in sorted_pres %}
