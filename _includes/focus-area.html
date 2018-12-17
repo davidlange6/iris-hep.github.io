@@ -23,6 +23,10 @@
 {% assign page_short_title = page_info.short_title %}
 {% assign page_blurb = page_info.blurb %}
 
+{% capture my_include3 %}{% include fa_instructions.md %}{% endcapture %}
+{{ my_include3 | markdownify }}
+<br>
+
 <div>
 <br>
 <center><h1>{{ page_title }}</h1></center>
@@ -62,14 +66,14 @@ the examples (look for pub_kind: Publication in the header. The same information
 for the entire project.
 
 {% capture list %}
-{% for project_hash in site.data.projects  %}
-  {% assign project = project_hash[1] %}
-  {% if project.focus-area == page_info.short_title %}
-  {% for pub in project.Publications  %}
-    ^{{pub.date | date: "%Y-%m-%d"}}|{{ pub.title }}|{{ pub.citation }}|{{ pub.link}}|{{project.name}}
+  {% for project_hash in site.data.projects  %}
+    {% assign project = project_hash[1] %}
+    {% if project.focus-area == page_info.short_title %}
+      {% for pub in project.Publications  %}
+        ^{{pub.date | date: "%Y-%m-%d"}}|{{ pub.title }}|{{ pub.citation }}|{{ pub.link}}|{{project.name}}
+      {% endfor %}
+    {% endif %}
   {% endfor %}
-  {% endif %}
-{% endfor %}
 {% endcapture %}
 
 {% assign sorted_pubs = list | split: "^" | sort | reverse %}
@@ -77,10 +81,10 @@ for the entire project.
 <div class="boxed">
 <ul>
   {% for pub_item in sorted_pubs %}
-  {% if pub_item.size  > 20 %}
-  {% assign pub = pub_item | split: "|" %}
-  <li> {{ pub[1] }}, <a href="{{pub[3]}}">{{pub[2]}}</a> ({{ pub[0] }}).</li>
-  {% endif %}
+    {% if pub_item.size  > 20 %}
+      {% assign pub = pub_item | split: "|" %}
+      <li> {{ pub[1] }}, <a href="{{pub[3]}}">{{pub[2]}}</a> ({{ pub[0] }}).</li>
+    {% endif %}
   {% endfor %}
 </ul>
 </div>
@@ -115,23 +119,19 @@ size, but will scroll to show older presentations.
 <div class="boxed">
 <ul>
 {% for presentation in sorted_pres %}
-    {% if presentation.size  > 20 %}
+  {% if presentation.size  > 20 %}
     {% assign item = presentation | split: "|" %}
     {% assign t1 = item[7] | strip %}
     {% assign t2 = page_short_title | strip %}
-
     {% if t1  == t2 | strip %}
       <li> <a href="{{item[3]}}">{{item[2]}}</a> ({{item[1]}}, {{item[0] | date_to_string}}) at <a href="{{item[5]}}">{{item[4]}}</a> </li>
     {% endif %}
-    {% endif %}
+  {% endif %}
 {% endfor %}
 </ul>
 </div>
 </div>
-
-
 </section>
-
 
 <section class="">
   <div class="container-lg p-responsive py-5 py-md-6 ">
