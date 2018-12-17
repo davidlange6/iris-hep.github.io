@@ -1,7 +1,0 @@
-- [Pres 1](https://indico.cern.ch)
-- [Pres 2](https://indico.cern.ch)
-- [Pres 3](https://indico.cern.ch)
-- [Pres 4](https://indico.cern.ch)
-- [Pres 5](https://indico.cern.ch)
-- [Pres 6](https://indico.cern.ch)
-- [Pres 7](https://indico.cern.ch)

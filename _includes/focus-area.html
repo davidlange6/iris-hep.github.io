@@ -72,7 +72,7 @@ for the entire project.
 {% endfor %}
 {% endcapture %}
 
-{% assign sorted_pubs = list | split: "^" | sort %}
+{% assign sorted_pubs = list | split: "^" | sort | reverse %}
 
 <div class="boxed">
 <ul>
@@ -103,7 +103,7 @@ size, but will scroll to show older presentations.
         {% assign person = person_hash[1] %}
         {% if person.shortname == member %}
            {% for presentation in person.presentations %}
-             {{presentation.date | date: "%Y-%m-%d"}}|{{ person.name }}|{{ presentation.title }}|{{ presentation.url}}|{{ presentation.meeting }}|{{ presentation.meetingurl }}|{{ presentation.project}}|{{presentation.area}}^
+             ^{{presentation.date | date: "%Y-%m-%d"}}|{{ person.name }}|{{ presentation.title }}|{{ presentation.url}}|{{ presentation.meeting }}|{{ presentation.meetingurl }}|{{ presentation.project}}|{{presentation.area}}
            {% endfor %}
         {% endif %}
       {% endfor %}
@@ -111,13 +111,18 @@ size, but will scroll to show older presentations.
   {% endfor %}
 {% endcapture %}
 
-{% assign sorted_pres = list | split: "^"  | sort %}
+{% assign sorted_pres = list | split: "^"  | sort | reverse %}
 <div class="boxed">
 <ul>
 {% for presentation in sorted_pres %}
+    {% if presentation.size  > 20 %}
     {% assign item = presentation | split: "|" %}
-    {% if item[7] == page_short_title %}
+    {% assign t1 = item[7] | strip %}
+    {% assign t2 = page_short_title | strip %}
+
+    {% if t1  == t2 | strip %}
       <li> <a href="{{item[3]}}">{{item[2]}}</a> ({{item[1]}}, {{item[0] | date_to_string}}) at <a href="{{item[5]}}">{{item[4]}}</a> </li>
+    {% endif %}
     {% endif %}
 {% endfor %}
 </ul>
